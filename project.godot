@@ -1,0 +1,50 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Game of Life"
+config/version="0.0.1"
+run/main_scene="uid://btmdeuw3a4i0m"
+config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0.917647, 0.917647, 0.898039, 1)
+boot_splash/image="uid://50jnve3fyjqi"
+config/icon="uid://djmagdv21nno3"
+boot_splash/minimum_display_time=1000
+
+[autoload]
+
+SceneManager="*res://autoload/scene_manager.gd"
+AudioManager="*res://autoload/audio_manager.gd"
+Settings="*res://autoload/settings.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/resizable=false
+window/stretch/mode="canvas_items"
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "blue",
+"res://autoload/": "yellow",
+"res://icon/": "gray",
+"res://resources/": "green",
+"res://scenes/": "red"
+}
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

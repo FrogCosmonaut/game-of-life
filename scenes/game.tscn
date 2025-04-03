@@ -1,0 +1,113 @@
+[gd_scene load_steps=5 format=3 uid="uid://btmdeuw3a4i0m"]
+
+[ext_resource type="Script" uid="uid://dw7235qh4q4u7" path="res://scenes/game.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://73ouwhp5mesl" path="res://scenes/hud.gd" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://dvseqlj68keyy" path="res://scenes/grid/grid.tscn" id="2_lnu2h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yqjtg"]
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqjtg")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("2_lbhrr")
+
+[node name="Panel" type="Panel" parent="HUD"]
+custom_minimum_size = Vector2(220, 0)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="TopSeparator" type="HSeparator" parent="HUD/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_yqjtg")
+
+[node name="StartButton" type="Button" parent="HUD/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "PLAY"
+
+[node name="ResetButton" type="Button" parent="HUD/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "RESET"
+
+[node name="SpeedLabel" type="Label" parent="HUD/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sim Speed: x1"
+horizontal_alignment = 1
+
+[node name="SpeedSlider" type="HSlider" parent="HUD/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+min_value = 1.0
+step = 0.5
+value = 1.0
+
+[node name="CicleLabel" type="Label" parent="HUD/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cicle: 0"
+horizontal_alignment = 1
+
+[node name="BottomSeparator" type="HSeparator" parent="HUD/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_yqjtg")
+
+[node name="HTPButton" type="Button" parent="HUD/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "HOW TO PLAY?"
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Grid" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_lnu2h")]
+unique_name_in_owner = true
+
+[connection signal="toggled" from="HUD/Panel/MarginContainer/VBoxContainer/StartButton" to="SubViewportContainer/SubViewport/Grid" method="_on_play_button_toggled"]
+[connection signal="pressed" from="HUD/Panel/MarginContainer/VBoxContainer/ResetButton" to="SubViewportContainer/SubViewport/Grid" method="_on_reset_button_pressed"]
+[connection signal="value_changed" from="HUD/Panel/MarginContainer/VBoxContainer/SpeedSlider" to="HUD" method="_on_speed_slider_value_changed"]
+[connection signal="value_changed" from="HUD/Panel/MarginContainer/VBoxContainer/SpeedSlider" to="SubViewportContainer/SubViewport/Grid" method="_on_speed_slider_value_changed"]
+[connection signal="pressed" from="HUD/Panel/MarginContainer/VBoxContainer/HTPButton" to="HUD" method="_on_htp_button_pressed"]
+[connection signal="cicle_advanced" from="SubViewportContainer/SubViewport/Grid" to="HUD" method="_on_grid_cicle_advanced"]
+[connection signal="running_toggled" from="SubViewportContainer/SubViewport/Grid" to="HUD" method="_on_grid_running_toggled"]

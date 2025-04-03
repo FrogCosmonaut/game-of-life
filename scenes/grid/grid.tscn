@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvseqlj68keyy"]
+
+[ext_resource type="TileSet" uid="uid://copv8sp8af6kj" path="res://resources/tilesets/grid.tres" id="1_x0e5n"]
+[ext_resource type="Script" uid="uid://31r6ulyh15s2" path="res://scenes/grid/grid.gd" id="1_yuyu4"]
+[ext_resource type="Script" uid="uid://5phldm65q6lj" path="res://scenes/grid/camera.gd" id="2_tjrkl"]
+
+[node name="Grid" type="Node2D"]
+script = ExtResource("1_yuyu4")
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("2_tjrkl")
+
+[node name="TileMap" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+tile_set = ExtResource("1_x0e5n")
